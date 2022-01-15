@@ -1,0 +1,54 @@
+`timescale 1ns/1ns//延时单位、精度
+module Verilog2;
+	reg clk,rst,LEFT,RIGHT;
+	
+	wire LA,LB,LC,RA,RB,RC,led1,led2,seg_led_1;
+	
+	always
+	  begin
+	  clk=1'b0;
+	  clk=#10 1'b1;
+	  #1000;
+	  end
+	  
+	initial
+	  begin
+	  rst=1'b0;
+	  rst=#20 1'b1;//延时20ns
+	  end
+	 
+	carlight u(
+	.clk(clk),
+	.rst(rst),
+	.LEFT(LEFT),
+	.RIGHT(RIGHT),
+	.LA(LA),
+	.LB(LB),
+	.LC(LC),
+	.RA(RA),
+	.RB(RB),
+	.RC(RC),
+	.led1(led1),
+	.led2(led2),
+	.seg_led_1(seg_led_1)
+	
+	
+	);
+
+
+	
+	  
+	initial
+	  begin
+	  
+	  #200 LEFT=1'b0;RIGHT=1'b0;
+	  #200 LEFT=1'b1;RIGHT=1'b0;//左转
+	  #200 LEFT=1'b0;RIGHT=1'b1;//左转
+	  #200 LEFT=1'b1;RIGHT=1'b1;//右转
+	  #200 $stop;
+	  end
+
+
+endmodule
+  
+  
